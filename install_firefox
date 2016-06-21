@@ -1,0 +1,11 @@
+安装火狐浏览器
+打开终端
+第一步：apt-get remove iceweasel
+第二步：
+echo -e "\ndeb http://downloads.sourceforge.net/project/ubuntuzilla/mozilla/apt all main" | tee -a /etc/apt/sources.list > /dev/null
+第三步：
+apt-key adv --recv-keys --keyserver keyserver.ubuntu.com C1289A29
+第四步：
+apt-get update
+第五步
+apt-get install firefox-mozilla-build
