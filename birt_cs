@@ -1,0 +1,135 @@
+birt  参数
+
+“__report” 
+定义要预览的rptdesign文件路径，支持相对路径和绝对路径，相对路径是相对于web.xml中定义的工作目录。 
+
+“__document” 
+定义要预览的rptdocument文件路径，同样支持相对和绝对路径。相对路径是相对于web.xml中定义的工作目录。在同时定义了__report 和__document参数时，以__document为优先，如未找到相应的document文件，才会从design文件生成document文件 (frameset/output)或是直接去render这个design文件(preview/run)。 
+
+“__title” 
+定义报表显示的标题。 
+
+“__showtitle” 
+是否显示frameset模式下上方的标题部分。true | false 
+
+“__toolbar” 
+是否显示frameset模式下的工具条。true | false 
+
+“__navigationbar” 
+是否显示frameset模式下的导航条。true | false 
+
+“__parameterpage” 
+是否强制弹出或不弹出报表参数对话框。true | false 
+
+“__format” 
+输出报表的格式，默认为html。现在支持：pdf | doc | xls | postscript | ppt 
+
+“__locale” 
+设置Locale信息，如 __locale=zh_CN， 注意必须是国家加语言。 
+
+“__svg” 
+设置chart输出是否以SVG格式输出。true | false 
+frameset和run模式下，会采用javascript判断客户端浏览器是否支持svg，但并非对所有浏览器有效。 
+
+“__bookmark” 
+设置页面要定位的书签名字。 
+
+“__istoc” 
+指定定位的书签是不是一个TOC名字。如为true,就会根据__bookmark参数值去获取一个真正的书签名，从而实现正常的跳转。这个主要用于定位到一个TOC上。 
+
+“__rtl” 
+指定HTML页面输出是否需要right to left。支持不同国家的阅读习惯，如阿拉伯国家是从右到左的。 
+
+“__page” 
+指定要输出的报表页数，这个依赖于报表的分页设计(page break)。 
+
+“__pagerange” 
+指定要输出的报表页数范围。如1,3,5-9。 
+
+“__resourceFolder” 
+定义资源目录路径。同web.xml中的BIRT_RESOURCE_PATH设置。 
+
+“__asattachment” 
+是否以附件方式下载报表，如生成PDF或是其它格式里。默认是inline。 
+
+“__masterpage” 
+是否要显示master page。true | false 
+
+“__designer” 
+该参数主要是应用在BIRT Designer环境下，如会读取cache的报表参数等等，一般不用。true | false 
+
+“__overwrite” 
+该参数同web.xml定义的参数，不过web.xml里是全局设置，在URL上通过参数可以定义本次操作的设置。 
+
+“__imageID” 
+内部参数，用于image的引用，一般不用。 
+
+“__maxrows” 
+设置Dataset查询的最大记录数，要注意这个设置是全局的，会影响后面所有的请求。主要用于BIRT Designer下，提高报表设计效率。同web.xml中的BIRT_VIEWER_MAX_ROWS设置。 
+
+“__maxlevels” 
+设置查询获取Cube的最大级数。同上面的__maxrows，也主要用于BIRT Designer设计环境。 
+同web.xml中的BIRT_VIEWER_MAX_CUBE_LEVELS设置。 
+
+“__cubememsize” 
+同web.xml中的BIRT_VIEWER_CUBE_MEMORY_SIZE参数设置。 
+
+“__instanceid” 
+如果查看BIRT输出的HTML代码，你就可以看到一些HTML Element会有一个iid的属性(如table)，这个就是instanceid。这个是Engine动态生成的，不可提前预知。所以你需要从 HTML代码中得到这个值。该参数主要是为了获取reportlet(报表片断，如只输出报表中的一个Table或是一个Chart)。需要配合 __isreportlet参数。 
+
+“__isreportlet” 
+指定当前输出是不是一个reportlet。true | false 
+特别说明：为了输出一个reportlet，BIRT现在提供两种方式。 
+1． 为要输出的对象(表格或是Chart)定义一个bookmark，然后可以用下面的URL输出reportlet. 
+http://localhost:8080/birt/frameset?__report=test.rptdesign&__bookmark=bk&__isreportlet=true 
+
+2． 采用instanceid，但这个值事先是无法预知的，需要预览一次后从HTML代码中得到。然后用下面的URL输出reportlet. 
+http://localhost:8080/birt/output?__report=test.rptdesign&__instanceid=iid&__isreportlet=true 
+还有就是要注意，reportlet只支持document文档。如果是预览design文档去输出reportlet，就必须要使用frameset/output(自动生成document文档)。 
+
+“__clean” 
+BIRT里临时生成的一些文件都是和session相关的，比如临时document文件，还有image文件。这些文件也可以通过session进行管理，这个参数就是指定是否需要在session timeout的时候清除这些临时文件。默认值是true。 
+true | false 
+
+“__dpi” 
+可以设置输出Chart的dpi数值。 
+
+“__fittopage” 
+暂时这个参数只对PDF和postscript格式报表有效，指定是否调整至适合页面。 
+
+“__pagebreakonly” 
+暂时这个参数只对PDF和postscript格式报表有效，指定是否只采用BIRT报表内定的分页设置。这个参数一般需要和__fittopage联合使用。 
+
+“__agentstyle” 
+同web.xml中的HTML_ENABLE_AGENTSTYLE_ENGINE参数设置。 
+
+========================== 后台Server端打印相关参数 ========================== 
+“__action” 
+定义执行的指令名称。当前只支持print指令，用于后台服务器打印。 
+
+“__printer” 
+后台打印机名称。 
+
+“__printer_copies” 
+对应打印机的打印份数参数。 
+
+“__printer_collate” 
+对应打印机的双面打印参数。 
+
+“__printer_duplex” 
+对应打印机的duplex参数。 
+
+“__printer_mode” 
+对应打印机的模式参数。是单色还是彩色。 
+
+“__printer_pagesize” 
+对应打印机的纸型参数。比如A4。 
+=============================================================================== 
+
+
+
+http://127.0.0.1:8080/WebViewerExample/run?__report=/BIRTDemo/Order1.rptdesign&sample=my+parameter&__parameterpage=false&basic_id=4&basic_distributeri_id=4&__page=2&__pagerange=1,3
+
+
+http://127.0.0.1:8080/WebViewerExample/run?__report=/BIRTDemo/1.rptdesign&sample=my+parameter&__parameterpage=false&__page=2&__pageRange=1,3&__masterpage=false
+
