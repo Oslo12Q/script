@@ -38,3 +38,4 @@ service mysql restart
 sudo apt-get install python-mysqldb
 mysql -uroot -p
 
+sudo /etc/init.d/mysql restart
